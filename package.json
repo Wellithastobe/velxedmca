@@ -1,5 +1,5 @@
 {
-  "name": "velxe-discord-roblox-bot",
+  "name": "velxe",
   "version": "1.0.0",
   "description": "Discord-Roblox account linking bot with Vercel serverless functions",
   "main": "index.js",
