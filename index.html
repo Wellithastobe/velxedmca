@@ -443,58 +443,23 @@
             }
         }
         
-        // Get Roblox user info
+        // Get Roblox user info via Vercel API
         async function getRobloxUserInfo(username) {
             try {
-                // Search for user
-                const searchResponse = await fetch('https://users.roblox.com/v1/usernames/users', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        usernames: [username],
-                        excludeBannedUsers: true
-                    })
-                });
+                const response = await fetch(`/api/get-user?username=${encodeURIComponent(username)}`);
                 
-                if (!searchResponse.ok) {
+                if (!response.ok) {
                     throw new Error('User not found');
                 }
                 
-                const searchData = await searchResponse.json();
-                if (!searchData.data || searchData.data.length === 0) {
-                    throw new Error('User not found');
+                const data = await response.json();
+                
+                if (!data.success) {
+                    throw new Error(data.error || 'Failed to get user info');
                 }
                 
-                const userData = searchData.data[0];
-                robloxUserId = userData.id;
-                
-                // Get user details
-                const detailsResponse = await fetch(`https://users.roblox.com/v1/users/${robloxUserId}`);
-                if (!detailsResponse.ok) {
-                    throw new Error('Failed to get user details');
-                }
-                
-                const detailsData = await detailsResponse.json();
-                
-                // Get avatar
-                const avatarResponse = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${robloxUserId}&size=150x150&format=Png&isCircular=true`);
-                let profilePicUrl = 'https://via.placeholder.com/100x100/1f2937/ffffff?text=?';
-                
-                if (avatarResponse.ok) {
-                    const avatarData = await avatarResponse.json();
-                    if (avatarData.data && avatarData.data.length > 0) {
-                        profilePicUrl = avatarData.data[0].imageUrl;
-                    }
-                }
-                
-                return {
-                    profilePicUrl,
-                    displayName: detailsData.displayName || username,
-                    username: detailsData.name || username,
-                    description: detailsData.description || ''
-                };
+                robloxUserId = data.data.userId;
+                return data.data;
                 
             } catch (error) {
                 console.error('Error getting Roblox user info:', error);
@@ -502,18 +467,22 @@
             }
         }
         
-        // Check Roblox bio
+        // Check Roblox bio via Vercel API
         async function checkRobloxBio() {
             try {
-                const detailsResponse = await fetch(`https://users.roblox.com/v1/users/${robloxUserId}`);
-                if (!detailsResponse.ok) {
+                const response = await fetch(`/api/check-bio?userId=${robloxUserId}&code=${encodeURIComponent(securityCode)}`);
+                
+                if (!response.ok) {
                     return false;
                 }
                 
-                const detailsData = await detailsResponse.json();
-                const description = detailsData.description || '';
+                const data = await response.json();
                 
-                return description.includes(securityCode);
+                if (!data.success) {
+                    return false;
+                }
+                
+                return data.hasCode;
                 
             } catch (error) {
                 console.error('Error checking Roblox bio:', error);
