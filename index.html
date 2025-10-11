@@ -3,635 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Velxe - DMCA Protection Services</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <title>Discord-Roblox Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
             min-height: 100vh;
-            overflow-x: hidden;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            animation: slideDown 0.8s ease-out;
-        }
-
-        nav {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            padding: 1.5rem 2.5rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            min-width: 500px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        nav::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 20px;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        nav::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: 20px;
-            width: 3px;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
-            animation: pulse 2s ease-in-out infinite 1s;
-        }
-
-        /* Glass glow balls along bottom edge - invisible with glow only */
-        .nav-glow-1 {
-            position: absolute;
-            bottom: -5px;
-            left: 15%;
-            width: 1px;
-            height: 1px;
-            background: transparent;
-            border-radius: 50%;
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
-            animation: glowPulse 3s ease-in-out infinite;
-        }
-
-        .nav-glow-2 {
-            position: absolute;
-            bottom: -5px;
-            left: 35%;
-            width: 1px;
-            height: 1px;
-            background: transparent;
-            border-radius: 50%;
-            box-shadow: 0 0 35px rgba(255, 255, 255, 0.7);
-            animation: glowPulse 2.5s ease-in-out infinite 0.5s;
-        }
-
-        .nav-glow-3 {
-            position: absolute;
-            bottom: -5px;
-            left: 55%;
-            width: 1px;
-            height: 1px;
-            background: transparent;
-            border-radius: 50%;
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.6);
-            animation: glowPulse 3.5s ease-in-out infinite 1s;
-        }
-
-        .nav-glow-4 {
-            position: absolute;
-            bottom: -5px;
-            left: 75%;
-            width: 1px;
-            height: 1px;
-            background: transparent;
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
-            animation: glowPulse 2.8s ease-in-out infinite 1.5s;
-        }
-
-        .nav-glow-5 {
-            position: absolute;
-            bottom: -5px;
-            right: 15%;
-            width: 1px;
-            height: 1px;
-            background: transparent;
-            border-radius: 50%;
-            box-shadow: 0 0 45px rgba(255, 255, 255, 0.7);
-            animation: glowPulse 3.2s ease-in-out infinite 2s;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
+            justify-content: center;
+            padding: 20px;
             color: #ffffff;
-            letter-spacing: -0.02em;
-            position: relative;
+            overflow-x: hidden;
         }
-
-        .logo::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: -15px;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
-            animation: pulse 2.5s ease-in-out infinite 0.5s;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-links a {
-            color: #ffffff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.75rem 1.25rem;
-            border-radius: 25px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            letter-spacing: -0.01em;
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 8px;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translateY(-50%);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover::before {
-            opacity: 1;
-            box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
-        }
-
-        .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-        }
-
-        .login-nav-btn {
-            background: rgba(255, 255, 255, 0.1) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            backdrop-filter: blur(20px) !important;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-        }
-
-        .login-nav-btn:hover {
-            background: rgba(255, 255, 255, 0.2) !important;
-            border-color: rgba(255, 255, 255, 0.3) !important;
-            box-shadow: 
-                0 12px 40px rgba(255, 255, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 140px 0 100px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
+        
+        .stars {
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: #0a0a0a;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
-
-        .hero-content {
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             z-index: 2;
         }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #ffffff;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero p {
-            font-size: 1.125rem;
-            color: #a1a1aa;
-            margin-bottom: 3rem;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
-            font-size: 0.95rem;
-            letter-spacing: -0.01em;
-            transform: translateY(0);
-        }
-
-        .btn:hover {
-            transform: translateY(-px);
-        }
-
-        .btn-primary {
-            background: rgba(55, 55, 55, 0.9);
-            color: #000000;
-            border: 1px solid rgba(55, 55, 55, 0.3);
-            backdrop-filter: blur(0px);
-            box-shadow: 
-                0 8px 3px rgba(55, 55, 55, 0.1),
-                inset 0 1px 0 rgba(55, 55, 55, 0.5);
-        }
-
-        .btn-primary:hover {
-            background: rgba(55, 55, 55, 1);
-            color: #000000;
-            box-shadow: 
-                0 15px 40px rgba(55, 55, 55, 0.3),
-                inset 0 1px 0 rgba(55, 55, 55, 0.8);
-        }
-
-        .btn-secondary {
-            background: rgba(55, 55, 55, 0.08);
-            color: white;
-            border: 1px solid rgba(55, 255, 255, 0.2);
-            backdrop-filter: blur(20px);
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 
-                0 15px 40px rgba(255, 255, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        /* Status Dashboard */
-        .status-dashboard {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            padding: 3rem;
-            margin: 4rem auto;
-            max-width: 900px;
-            animation: scaleIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        .status-dashboard:hover {
-            transform: translateY(-5px);
-            box-shadow: 
-                0 30px 80px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .status-title {
-            text-align: center;
-            font-size: 1.75rem;
-            font-weight: 600;
-            margin-bottom: 2.5rem;
-            color: #ffffff;
-            letter-spacing: -0.02em;
-        }
-
-        .status-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
-        }
-
-        .status-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-            animation: scaleIn 1s cubic-bezier(0.16, 1, 0.3, 1) both;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        .status-card:nth-child(1) {
-            animation-delay: 1s;
-        }
-
-        .status-card:nth-child(2) {
-            animation-delay: 1.1s;
-        }
-
-        .status-card:nth-child(3) {
-            animation-delay: 1.2s;
-        }
-
-        .status-card:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 
-                0 20px 50px rgba(255, 255, 255, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .status-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-            letter-spacing: -0.03em;
-        }
-
-        .status-label {
-            color: #a1a1aa;
-            font-weight: 500;
-        }
-
-        /* Pricing Section */
-        .pricing {
-            padding: 100px 0;
-            background: #0a0a0a;
-        }
-
-        .pricing-title {
-            text-align: center;
-            font-size: 2.75rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #ffffff;
-            letter-spacing: -0.03em;
-            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.4s both;
-        }
-
-        .pricing-subtitle {
-            text-align: center;
-            color: #a1a1aa;
-            font-size: 1.125rem;
-            margin-bottom: 4rem;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.6s both;
-        }
-
-        .pricing-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 2.5rem;
-            margin-top: 3rem;
-        }
-
-        .pricing-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            padding: 3rem;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-            animation: slideInLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        .pricing-card:nth-child(2) {
-            animation: slideInRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-        }
-
-        .pricing-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: #ffffff;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .pricing-card:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 
-                0 30px 80px rgba(255, 255, 255, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .pricing-card.featured {
-            border-color: #ffffff;
-            transform: scale(1.02);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .pricing-card.featured::before {
-            height: 6px;
-        }
-
-        .pricing-card.featured:hover {
-            transform: translateY(-10px) scale(1.05);
-        }
-
-        .plan-name {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #ffffff;
-            letter-spacing: -0.02em;
-        }
-
-        .plan-price {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-            letter-spacing: -0.03em;
-        }
-
-        .plan-period {
-            color: #a1a1aa;
-            margin-bottom: 2rem;
-        }
-
-        .plan-features {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .plan-features li {
-            padding: 0.5rem 0;
-            color: #e4e4e7;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .plan-features li i {
-            color: #10b981;
-            font-size: 1.2rem;
-        }
-
-        .plan-button {
-            width: 100%;
-            padding: 1rem 2rem;
-            background: rgba(255, 255, 255, 0.9);
-            color: #000000;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            font-size: 0.95rem;
-            letter-spacing: -0.01em;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(20px);
-            box-shadow: 
-                0 8px 32px rgba(255, 255, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5);
-        }
-
-        .plan-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .plan-button:hover::before {
-            left: 100%;
-        }
-
-        .plan-button:hover {
-            background: rgba(255, 255, 255, 1);
-            color: #000000;
-            transform: translateY(-2px);
-            box-shadow: 
-                0 15px 40px rgba(255, 255, 255, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        }
-
-        /* Discord Button */
-        .discord-btn {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: rgba(88, 101, 242, 0.8);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 
-                0 10px 30px rgba(88, 101, 242, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            z-index: 1000;
-            animation: float 3s ease-in-out infinite;
-            backdrop-filter: blur(20px);
-        }
-
-        .discord-btn:hover {
-            background: rgba(71, 82, 196, 0.9);
-            transform: scale(1.1);
-            box-shadow: 
-                0 15px 40px rgba(88, 101, 242, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        /* Premium Animations */
-        @keyframes fadeInUp {
+        
+        @keyframes slideUp {
             from {
                 opacity: 0;
                 transform: translateY(40px) scale(0.95);
@@ -641,449 +74,552 @@
                 transform: translateY(0) scale(1);
             }
         }
-
-        @keyframes slideDown {
-            from {
-                transform: translateX(-50%) translateY(-100%) scale(0.9);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(-50%) translateY(0) scale(1);
-                opacity: 1;
-            }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
         }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+        
+        .step.active {
+            display: block;
         }
-
-        @keyframes shimmer {
-            0% {
-                background-position: -200% 0;
-            }
-            100% {
-                background-position: 200% 0;
-            }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.8;
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes glowPulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-            }
-            50% {
-                transform: scale(3);
-                box-shadow: 0 0 80px rgba(255, 255, 255, 1);
-            }
-        }
-
-        /* Loading Animations */
-        @keyframes shimmer {
-            0% {
-                background-position: -200% 0;
-            }
-            100% {
-                background-position: 200% 0;
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-
-        /* Loading Spinner */
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top: 3px solid rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        .loading-spinner.large {
-            width: 60px;
-            height: 60px;
-            border-width: 4px;
-        }
-
-        .loading-spinner.small {
-            width: 20px;
-            height: 20px;
-            border-width: 2px;
-        }
-
-        /* Glass Loading Spinner */
-        .glass-spinner {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
+        
+        .roblox-info {
+            margin-bottom: 40px;
             position: relative;
-            margin: 20px auto;
-            animation: spin 2s linear infinite;
         }
-
-        .glass-spinner::before {
+        
+        .profile-pic-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .profile-pic:hover {
+            transform: scale(1.05);
+            border-color: rgba(99, 102, 241, 0.8);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+        }
+        
+        .profile-pic-glow {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            background: linear-gradient(45deg, #6366f1, #8b5cf6, #ec4899);
+            border-radius: 50%;
+            opacity: 0;
+            animation: pulse 2s infinite;
+            z-index: 1;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(1.1); }
+        }
+        
+        .username {
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .question {
+            font-size: 20px;
+            color: #a1a1aa;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn::before {
             content: '';
             position: absolute;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            bottom: 5px;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .security-code-container {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .security-code-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .security-code {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            color: #6366f1;
+            letter-spacing: 8px;
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            position: relative;
+            z-index: 2;
+            animation: codeGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes codeGlow {
+            from { text-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
+            to { text-shadow: 0 0 30px rgba(99, 102, 241, 0.8), 0 0 40px rgba(99, 102, 241, 0.3); }
+        }
+        
+        .instructions {
+            color: #a1a1aa;
+            font-size: 16px;
+            margin-top: 20px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        
+        .status {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 16px;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .status.checking {
+            background: rgba(251, 191, 36, 0.1);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            animation: checkingPulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes checkingPulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        .status.success {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            animation: successBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes successBounce {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .tick {
+            font-size: 64px;
+            color: #22c55e;
+            margin-bottom: 20px;
+            animation: tickAnimation 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-shadow: 0 0 30px rgba(34, 197, 94, 0.5);
+        }
+        
+        @keyframes tickAnimation {
+            0% { 
+                opacity: 0; 
+                transform: scale(0) rotate(-45deg); 
+            }
+            50% { 
+                transform: scale(1.2) rotate(0deg); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1) rotate(0deg); 
+            }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .loading-dots {
+            display: inline-block;
+        }
+        
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            border-radius: 2px;
+            width: 0%;
+            animation: progress 5s linear infinite;
+        }
+        
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #a1a1aa;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .copy-btn:hover {
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            animation: spin 1.5s linear infinite reverse;
+            color: #ffffff;
+        }
+        
+        .copy-btn.copied {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border-color: rgba(34, 197, 94, 0.3);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            nav {
-                min-width: 350px;
-                padding: 1.25rem 2rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-            }
-
-            .nav-links a {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .hero {
-                padding: 120px 0 80px;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-
-            .pricing-cards {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-card.featured {
-                transform: none;
-            }
-
-            .status-dashboard {
-                margin: 2rem auto;
-                padding: 2rem;
-            }
-
-            .status-cards {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-        }
-
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1a1a1a;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #ffffff;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #f5f5f5;
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <nav>
-            <div class="logo">Velxe</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#status">Status</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <!-- Glass glow balls along bottom edge -->
-            <div class="nav-glow-1"></div>
-            <div class="nav-glow-2"></div>
-            <div class="nav-glow-3"></div>
-            <div class="nav-glow-4"></div>
-            <div class="nav-glow-5"></div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Protecting you more then erm, just more then anything</h1>
-                <p>Professional DMCA protection services to safeguard your digital assets. Fast, reliable, and affordable protection for creators and businesses.</p>
-                <div class="cta-buttons">
-                    <a href="#pricing" class="btn btn-primary">
-                        <i data-lucide="shield-check"></i>
-                        Get Protected
-                    </a>
-                    <a href="#status" class="btn btn-secondary">
-                        <i data-lucide="bar-chart-3"></i>
-                        View Status
-                    </a>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <div id="step1" class="step active">
+            <div class="roblox-info">
+                <div class="profile-pic-container">
+                    <div class="profile-pic-glow"></div>
+                    <img src="" alt="Profile Picture" class="profile-pic" id="profilePic">
                 </div>
+                <div class="username" id="username">Loading...</div>
+            </div>
+            <div class="question">Is this your Roblox account?</div>
+            <button class="btn" onclick="showStep2()">Yes, Continue Verification</button>
+        </div>
+        
+        <div id="step2" class="step">
+            <h2 style="margin-bottom: 30px; color: #ffffff; font-weight: 600;">Security Verification</h2>
+            <div class="security-code-container">
+                <div class="security-code" id="securityCode">Loading...</div>
+                <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+            </div>
+            <div class="instructions">
+                📋 Copy the code above and paste it into your Roblox profile bio<br>
+                🔍 We'll automatically check every 5 seconds for the code<br>
+                ⏱️ You have 10 minutes to complete verification
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div id="status" class="status checking hidden">
+                <span class="loading-dots">Checking your bio</span>
             </div>
         </div>
-    </section>
-
-    <!-- Status Dashboard -->
-    <section id="status" class="container">
-        <div class="status-dashboard">
-            <h2 class="status-title">Protects</h2>
-            <div class="status-cards">
-                <div class="status-card">
-                    <div class="status-number">0</div>
-                    <div class="status-label">Pending Requests</div>
-                </div>
-                <div class="status-card">
-                    <div class="status-number">2</div>
-                    <div class="status-label">Successful</div>
-                </div>
-                <div class="status-card">
-                    <div class="status-number">0</div>
-                    <div class="status-label">Not Successful</div>
-                </div>
+        
+        <div id="step3" class="step">
+            <div class="tick">✓</div>
+            <h2 style="margin-bottom: 20px; color: #ffffff; font-weight: 600;">Verification Complete!</h2>
+            <div class="status success">
+                🎉 <span id="discordUsername">User</span> is now linked with <span id="robloxUsername">Roblox User</span>
             </div>
         </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing">
-        <div class="container">
-            <h2 class="pricing-title">Choose Your Protection Plan</h2>
-            <p class="pricing-subtitle">Select the perfect plan for your DMCA protection needs</p>
-            
-            <div class="pricing-cards">
-                <!-- Free Plan -->
-                <div class="pricing-card">
-                    <h3 class="plan-name">Free Plan</h3>
-                    <div class="plan-price">£0</div>
-                    <div class="plan-period">per month</div>
-                    <ul class="plan-features">
-                        <li><i data-lucide="check"></i> 5 Assets Protected</li>
-                        <li><i data-lucide="check"></i> Low Priority Support</li>
-                        <li><i data-lucide="check"></i> 24-48 Hour Response</li>
-                        <li><i data-lucide="check"></i> Basic DMCA Protection</li>
-                        <li><i data-lucide="check"></i> Discord Support Only</li>
-                    </ul>
-                    <button class="plan-button">Get Started Free</button>
-                </div>
-
-                <!-- Paid Plan -->
-                <div class="pricing-card featured">
-                    <h3 class="plan-name">Pro Plan</h3>
-                    <div class="plan-price">£5</div>
-                    <div class="plan-period">per month</div>
-                    <ul class="plan-features">
-                        <li><i data-lucide="check"></i> 15 Assets Protected</li>
-                        <li><i data-lucide="check"></i> High Priority Support</li>
-                        <li><i data-lucide="check"></i> 2-6 Hour Response</li>
-                        <li><i data-lucide="check"></i> Advanced DMCA Protection</li>
-                        <li><i data-lucide="check"></i> Priority Discord Support Only</li>
-                        <li><i data-lucide="check"></i> Custom Protection Rules</li>
-                        <li><i data-lucide="check"></i> Detailed Analytics</li>
-                    </ul>
-                    <button class="plan-button">Upgrade to Pro</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Discord Button -->
-    <button class="discord-btn" onclick="window.open('https://discord.gg/velxe', '_blank')">
-        <i data-lucide="message-circle"></i>
-    </button>
+    </div>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const robloxUser = urlParams.get('user');
+        const discordUser = urlParams.get('discord');
+        const securityCode = urlParams.get('code');
+        
+        let checkingInterval;
+        let progressInterval;
+        let timeLeft = 600; // 10 minutes in seconds
+        let robloxUserId = null;
+        
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Get Roblox user info
+        async function getRobloxUserInfo(username) {
+            try {
+                // Search for user
+                const searchResponse = await fetch('https://users.roblox.com/v1/usernames/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        usernames: [username],
+                        excludeBannedUsers: true
+                    })
+                });
+                
+                if (!searchResponse.ok) {
+                    throw new Error('User not found');
                 }
-            });
-        });
-
-        // Add hover effects to pricing cards
-        document.querySelectorAll('.pricing-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                if (card.classList.contains('featured')) {
-                    card.style.transform = 'scale(1.02)';
+                
+                const searchData = await searchResponse.json();
+                if (!searchData.data || searchData.data.length === 0) {
+                    throw new Error('User not found');
                 }
-            });
+                
+                const userData = searchData.data[0];
+                robloxUserId = userData.id;
+                
+                // Get user details
+                const detailsResponse = await fetch(`https://users.roblox.com/v1/users/${robloxUserId}`);
+                if (!detailsResponse.ok) {
+                    throw new Error('Failed to get user details');
+                }
+                
+                const detailsData = await detailsResponse.json();
+                
+                // Get avatar
+                const avatarResponse = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${robloxUserId}&size=150x150&format=Png&isCircular=true`);
+                let profilePicUrl = 'https://via.placeholder.com/100x100/1f2937/ffffff?text=?';
+                
+                if (avatarResponse.ok) {
+                    const avatarData = await avatarResponse.json();
+                    if (avatarData.data && avatarData.data.length > 0) {
+                        profilePicUrl = avatarData.data[0].imageUrl;
+                    }
+                }
+                
+                return {
+                    profilePicUrl,
+                    displayName: detailsData.displayName || username,
+                    username: detailsData.name || username,
+                    description: detailsData.description || ''
+                };
+                
+            } catch (error) {
+                console.error('Error getting Roblox user info:', error);
+                return null;
+            }
+        }
+        
+        // Check Roblox bio
+        async function checkRobloxBio() {
+            try {
+                const detailsResponse = await fetch(`https://users.roblox.com/v1/users/${robloxUserId}`);
+                if (!detailsResponse.ok) {
+                    return false;
+                }
+                
+                const detailsData = await detailsResponse.json();
+                const description = detailsData.description || '';
+                
+                return description.includes(securityCode);
+                
+            } catch (error) {
+                console.error('Error checking Roblox bio:', error);
+                return false;
+            }
+        }
+        
+        // Initialize page
+        async function initializePage() {
+            if (!robloxUser || !discordUser || !securityCode) {
+                document.querySelector('.container').innerHTML = `
+                    <div class="error">
+                        ❌ Invalid verification link. Please try again from Discord.
+                    </div>
+                `;
+                return;
+            }
             
-            card.addEventListener('mouseleave', () => {
-                if (card.classList.contains('featured')) {
-                    card.style.transform = 'scale(1.02)';
-                } else {
-                    card.style.transform = 'scale(1)';
+            // Update page with user info
+            document.getElementById('username').textContent = robloxUser;
+            document.getElementById('discordUsername').textContent = discordUser;
+            document.getElementById('robloxUsername').textContent = robloxUser;
+            document.getElementById('securityCode').textContent = securityCode;
+            
+            // Get Roblox profile info
+            const userInfo = await getRobloxUserInfo(robloxUser);
+            if (userInfo) {
+                document.getElementById('profilePic').src = userInfo.profilePicUrl;
+                document.getElementById('username').textContent = userInfo.displayName;
+            } else {
+                document.getElementById('profilePic').src = 'https://via.placeholder.com/100x100/1f2937/ffffff?text=?';
+                document.querySelector('.container').innerHTML += `
+                    <div class="error">
+                        ⚠️ Could not load Roblox profile. Verification will still work.
+                    </div>
+                `;
+            }
+        }
+        
+        function showStep2() {
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            startBioCheck();
+            startProgressBar();
+        }
+        
+        function startProgressBar() {
+            progressInterval = setInterval(() => {
+                timeLeft -= 1;
+                const percentage = ((600 - timeLeft) / 600) * 100;
+                document.querySelector('.progress-fill').style.width = percentage + '%';
+                
+                if (timeLeft <= 0) {
+                    clearInterval(progressInterval);
+                    clearInterval(checkingInterval);
+                    alert('Verification timed out. Please try again.');
                 }
-            });
-        });
-
-        // Add click effects to buttons
-        document.querySelectorAll('.btn, .plan-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                // Create ripple effect
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-                
-                ripple.style.width = ripple.style.height = size + 'px';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.classList.add('ripple');
-                
-                this.appendChild(ripple);
-                
+            }, 1000);
+        }
+        
+        function startBioCheck() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.classList.remove('hidden');
+            
+            checkingInterval = setInterval(async () => {
+                try {
+                    const bioHasCode = await checkRobloxBio();
+                    
+                    if (bioHasCode) {
+                        clearInterval(checkingInterval);
+                        clearInterval(progressInterval);
+                        showSuccess();
+                    }
+                } catch (error) {
+                    console.error('Error checking bio:', error);
+                }
+            }, 5000);
+        }
+        
+        function showSuccess() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+        }
+        
+        function copyCode() {
+            const code = document.getElementById('securityCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
                 setTimeout(() => {
-                    ripple.remove();
-                }, 600);
+                    btn.textContent = 'Copy Code';
+                    btn.classList.remove('copied');
+                }, 2000);
             });
-        });
-
-        // Add CSS for ripple effect
-        const style = document.createElement('style');
-        style.textContent = `
-            .btn, .plan-button {
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .ripple {
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.3);
-                transform: scale(0);
-                animation: ripple-animation 0.6s linear;
-                pointer-events: none;
-            }
-            
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Real loading overlay: show on page load, hide when ready
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loadingOverlay').classList.remove('active');
-            }, 1200); // Simulate loading for 1.2s
+        }
+        
+        // Initialize stars and page
+        createStars();
+        initializePage();
+        
+        // Clean up intervals when page is closed
+        window.addEventListener('beforeunload', () => {
+            if (checkingInterval) clearInterval(checkingInterval);
+            if (progressInterval) clearInterval(progressInterval);
         });
     </script>
 </body>
-
 </html>
-
