@@ -23,6 +23,15 @@
     },
     "api/check-bio.js": {
       "maxDuration": 10
+    },
+    "api/create-session.js": {
+      "maxDuration": 10
+    },
+    "api/get-session.js": {
+      "maxDuration": 10
+    },
+    "api/verify-bio.js": {
+      "maxDuration": 10
     }
   }
 }
