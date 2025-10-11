@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "name": "velxe-discord-roblox-bot",
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "functions": {
+    "api/get-user.js": {
+      "maxDuration": 10
+    },
+    "api/check-bio.js": {
+      "maxDuration": 10
+    }
+  }
+}
