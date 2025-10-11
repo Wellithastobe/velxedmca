@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Testing - Velxe Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+        .test-section {
+            background: #2a2a2a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background: #333;
+            color: white;
+        }
+        .result {
+            background: #333;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .success { border-left: 4px solid #4CAF50; }
+        .error { border-left: 4px solid #f44336; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Velxe Bot API Testing</h1>
+    
+    <div class="test-section">
+        <h2>1. Test Endpoint</h2>
+        <button onclick="testEndpoint()">Test /api/test</button>
+        <div id="test-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Get User Info</h2>
+        <input type="text" id="username" placeholder="Roblox Username" value="Roblox">
+        <button onclick="getUser()">Test /api/get-user</button>
+        <div id="user-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Create Session</h2>
+        <input type="text" id="discord-user" placeholder="Discord User" value="TestUser#1234">
+        <input type="text" id="roblox-user" placeholder="Roblox User" value="Roblox">
+        <button onclick="createSession()">Test /api/create-session</button>
+        <div id="session-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Get Session</h2>
+        <input type="text" id="session-id" placeholder="Session ID">
+        <button onclick="getSession()">Test /api/get-session</button>
+        <div id="get-session-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>5. Verify Bio</h2>
+        <button onclick="verifyBio()">Test /api/verify-bio</button>
+        <div id="verify-result" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://velxe.com/api';
+        
+        async function testEndpoint() {
+            try {
+                const response = await fetch(`${API_BASE}/test`);
+                const data = await response.json();
+                document.getElementById('test-result').innerHTML = 
+                    `Status: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+                document.getElementById('test-result').className = 
+                    `result ${response.ok ? 'success' : 'error'}`;
+            } catch (error) {
+                document.getElementById('test-result').innerHTML = `Error: ${error.message}`;
+                document.getElementById('test-result').className = 'result error';
+            }
+        }
+
+        async function getUser() {
+            const username = document.getElementById('username').value;
+            try {
+                const response = await fetch(`${API_BASE}/get-user?username=${encodeURIComponent(username)}`);
+                const data = await response.json();
+                document.getElementById('user-result').innerHTML = 
+                    `Status: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+                document.getElementById('user-result').className = 
+                    `result ${response.ok ? 'success' : 'error'}`;
+            } catch (error) {
+                document.getElementById('user-result').innerHTML = `Error: ${error.message}`;
+                document.getElementById('user-result').className = 'result error';
+            }
+        }
+
+        async function createSession() {
+            const discordUser = document.getElementById('discord-user').value;
+            const robloxUser = document.getElementById('roblox-user').value;
+            
+            try {
+                const response = await fetch(`${API_BASE}/create-session`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        discordUserId: '123456789',
+                        discordUsername: discordUser,
+                        robloxUsername: robloxUser
+                    })
+                });
+                const data = await response.json();
+                document.getElementById('session-result').innerHTML = 
+                    `Status: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+                document.getElementById('session-result').className = 
+                    `result ${response.ok ? 'success' : 'error'}`;
+                
+                // Auto-fill session ID for next test
+                if (data.sessionId) {
+                    document.getElementById('session-id').value = data.sessionId;
+                }
+            } catch (error) {
+                document.getElementById('session-result').innerHTML = `Error: ${error.message}`;
+                document.getElementById('session-result').className = 'result error';
+            }
+        }
+
+        async function getSession() {
+            const sessionId = document.getElementById('session-id').value;
+            if (!sessionId) {
+                document.getElementById('get-session-result').innerHTML = 'Please enter a session ID';
+                document.getElementById('get-session-result').className = 'result error';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/get-session?sessionId=${encodeURIComponent(sessionId)}`);
+                const data = await response.json();
+                document.getElementById('get-session-result').innerHTML = 
+                    `Status: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+                document.getElementById('get-session-result').className = 
+                    `result ${response.ok ? 'success' : 'error'}`;
+            } catch (error) {
+                document.getElementById('get-session-result').innerHTML = `Error: ${error.message}`;
+                document.getElementById('get-session-result').className = 'result error';
+            }
+        }
+
+        async function verifyBio() {
+            const sessionId = document.getElementById('session-id').value;
+            if (!sessionId) {
+                document.getElementById('verify-result').innerHTML = 'Please enter a session ID first';
+                document.getElementById('verify-result').className = 'result error';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/verify-bio`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        sessionId: sessionId
+                    })
+                });
+                const data = await response.json();
+                document.getElementById('verify-result').innerHTML = 
+                    `Status: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+                document.getElementById('verify-result').className = 
+                    `result ${response.ok ? 'success' : 'error'}`;
+            } catch (error) {
+                document.getElementById('verify-result').innerHTML = `Error: ${error.message}`;
+                document.getElementById('verify-result').className = 'result error';
+            }
+        }
+    </script>
+</body>
+</html>
