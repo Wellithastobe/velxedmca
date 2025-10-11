@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord-Roblox Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .roblox-info {
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .profile-pic-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .profile-pic:hover {
+            transform: scale(1.05);
+            border-color: rgba(99, 102, 241, 0.8);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+        }
+        
+        .profile-pic-glow {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            background: linear-gradient(45deg, #6366f1, #8b5cf6, #ec4899);
+            border-radius: 50%;
+            opacity: 0;
+            animation: pulse 2s infinite;
+            z-index: 1;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(1.1); }
+        }
+        
+        .username {
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .question {
+            font-size: 20px;
+            color: #a1a1aa;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .security-code-container {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .security-code-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .security-code {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            color: #6366f1;
+            letter-spacing: 8px;
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            position: relative;
+            z-index: 2;
+            animation: codeGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes codeGlow {
+            from { text-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
+            to { text-shadow: 0 0 30px rgba(99, 102, 241, 0.8), 0 0 40px rgba(99, 102, 241, 0.3); }
+        }
+        
+        .instructions {
+            color: #a1a1aa;
+            font-size: 16px;
+            margin-top: 20px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        
+        .status {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 16px;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .status.checking {
+            background: rgba(251, 191, 36, 0.1);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            animation: checkingPulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes checkingPulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        .status.success {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            animation: successBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes successBounce {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .tick {
+            font-size: 64px;
+            color: #22c55e;
+            margin-bottom: 20px;
+            animation: tickAnimation 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-shadow: 0 0 30px rgba(34, 197, 94, 0.5);
+        }
+        
+        @keyframes tickAnimation {
+            0% { 
+                opacity: 0; 
+                transform: scale(0) rotate(-45deg); 
+            }
+            50% { 
+                transform: scale(1.2) rotate(0deg); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1) rotate(0deg); 
+            }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .loading-dots {
+            display: inline-block;
+        }
+        
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            border-radius: 2px;
+            width: 0%;
+            animation: progress 5s linear infinite;
+        }
+        
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #a1a1aa;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+        
+        .copy-btn.copied {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .security-badge {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <div class="security-badge">🔒 Secure Verification - By velxe</div>
+        
+        <div id="step1" class="step active">
+            <div class="roblox-info">
+                <div class="profile-pic-container">
+                    <div class="profile-pic-glow"></div>
+                    <img src="" alt="Profile Picture" class="profile-pic" id="profilePic">
+                </div>
+                <div class="username" id="username">Loading...</div>
+            </div>
+            <div class="question">Is this your Roblox account?</div>
+            <button class="btn" onclick="showStep2()">Yes, Continue Verification</button>
+        </div>
+        
+        <div id="step2" class="step">
+            <h2 style="margin-bottom: 30px; color: #ffffff; font-weight: 600;">Security Verification</h2>
+            <div class="security-code-container">
+                <div class="security-code" id="securityCode">Loading...</div>
+                <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+            </div>
+            <div class="instructions">
+                📋 Copy the code above and paste it into your Roblox profile bio<br>
+                🔍 We'll automatically check every 5 seconds for the code<br>
+                ⏱️ You have 10 minutes to complete verification<br>
+                🛡️ This session is secure and cannot be bypassed
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div id="status" class="status checking hidden">
+                <span class="loading-dots">Checking your bio</span>
+            </div>
+        </div>
+        
+        <div id="step3" class="step">
+            <div class="tick">✓</div>
+            <h2 style="margin-bottom: 20px; color: #ffffff; font-weight: 600;">Verification Complete!</h2>
+            <div class="status success">
+                🎉 <span id="discordUsername">User</span> is now securely linked with <span id="robloxUsername">Roblox User</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get session ID from URL path
+        const pathParts = window.location.pathname.split('/');
+        const sessionId = pathParts[pathParts.length - 1];
+        
+        let checkingInterval;
+        let progressInterval;
+        let timeLeft = 600; // 10 minutes in seconds
+        let sessionData = null;
+        
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Get session data from Vercel API
+        async function getSessionData() {
+            try {
+                const response = await fetch(`/api/get-session?sessionId=${sessionId}`);
+                
+                if (!response.ok) {
+                    throw new Error('Session not found');
+                }
+                
+                const data = await response.json();
+                
+                if (!data.success) {
+                    throw new Error(data.error || 'Failed to get session');
+                }
+                
+                return data;
+                
+            } catch (error) {
+                console.error('Error getting session:', error);
+                return null;
+            }
+        }
+        
+        // Verify bio code
+        async function verifyBioCode() {
+            try {
+                const response = await fetch('/api/verify-bio', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        sessionId: sessionId
+                    })
+                });
+                
+                if (!response.ok) {
+                    return false;
+                }
+                
+                const data = await response.json();
+                
+                if (!data.success) {
+                    return false;
+                }
+                
+                return data.verified;
+                
+            } catch (error) {
+                console.error('Error verifying bio:', error);
+                return false;
+            }
+        }
+        
+        // Initialize page
+        async function initializePage() {
+            if (!sessionId) {
+                document.querySelector('.container').innerHTML = `
+                    <div class="error">
+                        ❌ Invalid verification link. Please try again from Discord.
+                    </div>
+                `;
+                return;
+            }
+            
+            // Get session data
+            const sessionResponse = await getSessionData();
+            if (!sessionResponse) {
+                document.querySelector('.container').innerHTML = `
+                    <div class="error">
+                        ❌ Session not found or expired. Please try again from Discord.
+                    </div>
+                `;
+                return;
+            }
+            
+            sessionData = sessionResponse.session;
+            const robloxUser = sessionResponse.robloxUser;
+            
+            // Update page with user info
+            document.getElementById('username').textContent = robloxUser.displayName;
+            document.getElementById('discordUsername').textContent = sessionData.discordUsername;
+            document.getElementById('robloxUsername').textContent = sessionData.robloxUsername;
+            document.getElementById('securityCode').textContent = sessionData.bioCode;
+            
+            // Set profile picture
+            if (robloxUser && robloxUser.profilePicUrl) {
+                document.getElementById('profilePic').src = robloxUser.profilePicUrl;
+            } else {
+                document.getElementById('profilePic').src = 'https://via.placeholder.com/100x100/1f2937/ffffff?text=?';
+            }
+        }
+        
+        function showStep2() {
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            startBioCheck();
+            startProgressBar();
+        }
+        
+        function startProgressBar() {
+            progressInterval = setInterval(() => {
+                timeLeft -= 1;
+                const percentage = ((600 - timeLeft) / 600) * 100;
+                document.querySelector('.progress-fill').style.width = percentage + '%';
+                
+                if (timeLeft <= 0) {
+                    clearInterval(progressInterval);
+                    clearInterval(checkingInterval);
+                    alert('Verification timed out. Please try again.');
+                }
+            }, 1000);
+        }
+        
+        function startBioCheck() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.classList.remove('hidden');
+            
+            checkingInterval = setInterval(async () => {
+                try {
+                    const verified = await verifyBioCode();
+                    
+                    if (verified) {
+                        clearInterval(checkingInterval);
+                        clearInterval(progressInterval);
+                        showSuccess();
+                    }
+                } catch (error) {
+                    console.error('Error checking bio:', error);
+                }
+            }, 5000);
+        }
+        
+        function showSuccess() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+        }
+        
+        function copyCode() {
+            const code = document.getElementById('securityCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy Code';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+        
+        // Initialize stars and page
+        createStars();
+        initializePage();
+        
+        // Clean up intervals when page is closed
+        window.addEventListener('beforeunload', () => {
+            if (checkingInterval) clearInterval(checkingInterval);
+            if (progressInterval) clearInterval(progressInterval);
+        });
+    </script>
+</body>
+</html>
