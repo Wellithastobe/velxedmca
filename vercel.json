@@ -18,19 +18,19 @@
     }
   ],
   "functions": {
-    "api/get-user.js": {
+    "api/create-session/index.js": {
       "maxDuration": 10
     },
-    "api/check-bio.js": {
+    "api/get-session/index.js": {
       "maxDuration": 10
     },
-    "api/create-session.js": {
+    "api/verify-bio/index.js": {
       "maxDuration": 10
     },
-    "api/get-session.js": {
+    "api/get-user/index.js": {
       "maxDuration": 10
     },
-    "api/verify-bio.js": {
+    "api/check-bio/index.js": {
       "maxDuration": 10
     }
   }
