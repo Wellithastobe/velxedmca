@@ -370,12 +370,26 @@
             border-radius: 12px;
             margin: 20px 0;
         }
+
+        .security-badge {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
     <div class="stars" id="stars"></div>
     
     <div class="container">
+        <div class="security-badge">🔒 Secure Verification - By velxe</div>
+        
         <div id="step1" class="step active">
             <div class="roblox-info">
                 <div class="profile-pic-container">
@@ -397,7 +411,8 @@
             <div class="instructions">
                 📋 Copy the code above and paste it into your Roblox profile bio<br>
                 🔍 We'll automatically check every 5 seconds for the code<br>
-                ⏱️ You have 10 minutes to complete verification
+                ⏱️ You have 10 minutes to complete verification<br>
+                🛡️ This session is secure and cannot be bypassed
             </div>
             <div class="progress-bar">
                 <div class="progress-fill"></div>
@@ -411,22 +426,20 @@
             <div class="tick">✓</div>
             <h2 style="margin-bottom: 20px; color: #ffffff; font-weight: 600;">Verification Complete!</h2>
             <div class="status success">
-                🎉 <span id="discordUsername">User</span> is now linked with <span id="robloxUsername">Roblox User</span>
+                🎉 <span id="discordUsername">User</span> is now securely linked with <span id="robloxUsername">Roblox User</span>
             </div>
         </div>
     </div>
 
     <script>
-        // Get URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const robloxUser = urlParams.get('user');
-        const discordUser = urlParams.get('discord');
-        const securityCode = urlParams.get('code');
+        // Get session ID from URL path
+        const pathParts = window.location.pathname.split('/');
+        const sessionId = pathParts[pathParts.length - 1];
         
         let checkingInterval;
         let progressInterval;
         let timeLeft = 600; // 10 minutes in seconds
-        let robloxUserId = null;
+        let sessionData = null;
         
         // Create animated stars
         function createStars() {
@@ -443,34 +456,41 @@
             }
         }
         
-        // Get Roblox user info via Vercel API
-        async function getRobloxUserInfo(username) {
+        // Get session data from Vercel API
+        async function getSessionData() {
             try {
-                const response = await fetch(`/api/get-user?username=${encodeURIComponent(username)}`);
+                const response = await fetch(`/api/get-session?sessionId=${sessionId}`);
                 
                 if (!response.ok) {
-                    throw new Error('User not found');
+                    throw new Error('Session not found');
                 }
                 
                 const data = await response.json();
                 
                 if (!data.success) {
-                    throw new Error(data.error || 'Failed to get user info');
+                    throw new Error(data.error || 'Failed to get session');
                 }
                 
-                robloxUserId = data.data.userId;
-                return data.data;
+                return data;
                 
             } catch (error) {
-                console.error('Error getting Roblox user info:', error);
+                console.error('Error getting session:', error);
                 return null;
             }
         }
         
-        // Check Roblox bio via Vercel API
-        async function checkRobloxBio() {
+        // Verify bio code
+        async function verifyBioCode() {
             try {
-                const response = await fetch(`/api/check-bio?userId=${robloxUserId}&code=${encodeURIComponent(securityCode)}`);
+                const response = await fetch('/api/verify-bio', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        sessionId: sessionId
+                    })
+                });
                 
                 if (!response.ok) {
                     return false;
@@ -482,17 +502,17 @@
                     return false;
                 }
                 
-                return data.hasCode;
+                return data.verified;
                 
             } catch (error) {
-                console.error('Error checking Roblox bio:', error);
+                console.error('Error verifying bio:', error);
                 return false;
             }
         }
         
         // Initialize page
         async function initializePage() {
-            if (!robloxUser || !discordUser || !securityCode) {
+            if (!sessionId) {
                 document.querySelector('.container').innerHTML = `
                     <div class="error">
                         ❌ Invalid verification link. Please try again from Discord.
@@ -501,24 +521,31 @@
                 return;
             }
             
-            // Update page with user info
-            document.getElementById('username').textContent = robloxUser;
-            document.getElementById('discordUsername').textContent = discordUser;
-            document.getElementById('robloxUsername').textContent = robloxUser;
-            document.getElementById('securityCode').textContent = securityCode;
-            
-            // Get Roblox profile info
-            const userInfo = await getRobloxUserInfo(robloxUser);
-            if (userInfo) {
-                document.getElementById('profilePic').src = userInfo.profilePicUrl;
-                document.getElementById('username').textContent = userInfo.displayName;
-            } else {
-                document.getElementById('profilePic').src = 'https://via.placeholder.com/100x100/1f2937/ffffff?text=?';
-                document.querySelector('.container').innerHTML += `
+            // Get session data
+            const sessionResponse = await getSessionData();
+            if (!sessionResponse) {
+                document.querySelector('.container').innerHTML = `
                     <div class="error">
-                        ⚠️ Could not load Roblox profile. Verification will still work.
+                        ❌ Session not found or expired. Please try again from Discord.
                     </div>
                 `;
+                return;
+            }
+            
+            sessionData = sessionResponse.session;
+            const robloxUser = sessionResponse.robloxUser;
+            
+            // Update page with user info
+            document.getElementById('username').textContent = robloxUser.displayName;
+            document.getElementById('discordUsername').textContent = sessionData.discordUsername;
+            document.getElementById('robloxUsername').textContent = sessionData.robloxUsername;
+            document.getElementById('securityCode').textContent = sessionData.bioCode;
+            
+            // Set profile picture
+            if (robloxUser && robloxUser.profilePicUrl) {
+                document.getElementById('profilePic').src = robloxUser.profilePicUrl;
+            } else {
+                document.getElementById('profilePic').src = 'https://via.placeholder.com/100x100/1f2937/ffffff?text=?';
             }
         }
         
@@ -549,9 +576,9 @@
             
             checkingInterval = setInterval(async () => {
                 try {
-                    const bioHasCode = await checkRobloxBio();
+                    const verified = await verifyBioCode();
                     
-                    if (bioHasCode) {
+                    if (verified) {
                         clearInterval(checkingInterval);
                         clearInterval(progressInterval);
                         showSuccess();
