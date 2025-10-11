@@ -3,6 +3,30 @@
   "name": "velxe-discord-roblox-bot",
   "routes": [
     {
+      "src": "/api/get-user",
+      "dest": "/api/get-user"
+    },
+    {
+      "src": "/api/check-bio",
+      "dest": "/api/check-bio"
+    },
+    {
+      "src": "/api/create-session",
+      "dest": "/api/create-session"
+    },
+    {
+      "src": "/api/get-session",
+      "dest": "/api/get-session"
+    },
+    {
+      "src": "/api/verify-bio",
+      "dest": "/api/verify-bio"
+    },
+    {
+      "src": "/api/test",
+      "dest": "/api/test"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },
